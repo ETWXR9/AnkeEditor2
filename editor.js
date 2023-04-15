@@ -55,11 +55,6 @@ function openImageTab(evt, tabName) {
 
 //#region editDiv
 
-function breakLine() {
-    document.execCommand('insertHTML', false, '</div>');
-    document.execCommand('insertHTML', false, '<div>');
-}
-
 function scrollToSelection() {
     let tempBr = document.createElement('br');
     window.getSelection().getRangeAt(0).insertNode(tempBr);
