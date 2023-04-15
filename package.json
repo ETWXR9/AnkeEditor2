@@ -48,6 +48,7 @@
     "portable": {
       "splashImage": "splashImage.bmp",
       "useZip": true
-    }
+    },
+    "afterPack": "./afterPack.js"
   }
 }

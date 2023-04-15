@@ -348,13 +348,15 @@ body {
 /* 图片容器标题 */
 .chara_container_header {
 	width: 100%;
-	height: 40px;
+	height: auto;
+	min-height: 40px;
 	background-color: var(--tag2-color);
 	/* 图片容器名称居中，字体大小等于高度 */
 	text-align: center;
 	line-height: 40px;
 	font-size: 20px;
 	cursor: pointer;
+	white-space: pre-wrap;
 }
 
 .chara_container_header::before {
@@ -398,6 +400,9 @@ body {
 
 	/* 文字不可以被选中 */
 	-webkit-user-select: none;
+	/* 允许滚动 */
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 /* 角色列表区 */
@@ -410,8 +415,8 @@ body {
 	background-color: var(--tag1-color);
 	width: 100%;
 	font-size: 20px;
+	height:auto;
 }
-
 /* 角色列表区标题鼠标悬停时，边框变色 */
 .group_header:hover {
 	border: 1px solid #4CAF50;
@@ -422,7 +427,7 @@ body {
 .new_chara {
 	width: 100%;
 	font-size: 16px;
-	height: 20px;
+	height: auto;
 	margin-left: 10px;
 	/* 两端为半圆形 */
 	border-radius: 10px;
@@ -430,6 +435,9 @@ body {
 	/* 文字垂直居中 */
 	line-height: 20px;
 	padding-left: 10px;
+	white-space: pre-wrap;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .new_chara {
