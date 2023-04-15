@@ -123,7 +123,7 @@ contextBridge.exposeInMainWorld(
       document.getElementById("version-text").innerHTML = "最新版本为" + result.data.name;
       document.getElementById("version-text").addEventListener('click', e => {
         e.preventDefault();
-        electron.shell.openExternal(result.data.html_url);
+        ipcRenderer.send('openUrl', result.data.html_url);
       })
     });
   },

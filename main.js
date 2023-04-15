@@ -61,4 +61,8 @@ ipcMain.on("openRootDir", (event, arg) => {
 ipcMain.on("getVersion", (event, arg) => {
     event.returnValue = app.getVersion();
 });
+ipcMain.on("openUrl", (event, arg) => {
+    const { shell } = require('electron')
+    shell.openExternal(arg);
+});
 

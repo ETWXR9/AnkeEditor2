@@ -109,20 +109,36 @@ editDiv.addEventListener('paste', function (e) {
 
 // Record cursor position when edit_div loses focus
 let savedSelection;
-editDiv.addEventListener('selectionchange', () => {
+editDiv.addEventListener('selectionchange', (e) => {
+    //prevent on dice_div class
+    if (e.target.className === "dice_div") {
+        return;
+    }
     saveSelection();
 });
-editDiv.addEventListener('selectstart', () => {
+// editDiv.addEventListener('selectstart', () => {
 
+//     saveSelection();
+// });
+editDiv.addEventListener('input', (e) => {
+    //prevent on dice_div class
+    if (e.target.className === "dice_div") {
+        return;
+    }
     saveSelection();
 });
-editDiv.addEventListener('input', () => {
+editDiv.addEventListener('keyup', (e) => {
+    //prevent on dice_div class
+    if (e.target.className === "dice_div") {
+        return;
+    }
     saveSelection();
 });
-editDiv.addEventListener('keyup', () => {
-    saveSelection();
-});
-editDiv.addEventListener('mouseup', () => {
+editDiv.addEventListener('mouseup', (e) => {
+    //prevent on dice_div class
+    if (e.target.className === "dice_div") {
+        return;
+    }
     //check if editdiv is focused
     if (document.activeElement === editDiv) {
         saveSelection();
@@ -137,6 +153,10 @@ function saveSelection() {
         savedSelection = sel.getRangeAt(0);
     }
 
+    //log
+    console.log(`save selection:`);
+    console.log(savedSelection);
+
 }
 function restoreSelection() {
     if (savedSelection) {
@@ -149,6 +169,9 @@ function restoreSelection() {
             savedSelection.select();
         }
     }
+    //log
+    console.log(`restore selection:`);
+    console.log(savedSelection);
     savedSelection = false;
 }
 
@@ -1164,10 +1187,13 @@ highlightColorInput.addEventListener('change', function (e) {
 
 
 //#region dice
+
+let beforeDiceSel;
 //ctrl+D触发骰子输入框
 editDiv.addEventListener('keydown', function (e) {
     if (e.ctrlKey && e.key.toLowerCase() === 'd') {
         scrollToSelection();
+        beforeDiceSel = window.getSelection().getRangeAt(0);
         setDiceInput();
         // document.execCommand('insertHTML', false, '<span id="hidden"></span>');
     }
@@ -1251,8 +1277,11 @@ function setDiceInput() {
     dicediv.appendChild(diceinput);
     dicediv.appendChild(dicesum);
     editDiv.appendChild(dicediv);
+    //log
+    console.log("dice input created");
     diceinput.focus();
-
+    //log
+    console.log("dice input focused");
     diceinput.addEventListener("input", (e) => {
         let text = e.target.value;
         let sum = sumDice(text);
@@ -1272,16 +1301,13 @@ function setDiceInput() {
             let result = rollDice(text);
             if (result !== null) {
                 //结算
-                // dicediv.parentNode.removeChild(dicediv);
                 editDiv.focus();
-                restoreSelection();
                 document.execCommand('insertText', false, result);
                 //create dice history
                 let diceHistoryItem = document.createElement('div');
                 diceHistoryItem.className = 'dice_history_item_div';
                 diceHistoryItem.innerText = result;
                 diceHistoryDiv.appendChild(diceHistoryItem);
-
             }
         }
         else if (e.key === "Escape") {
@@ -1290,14 +1316,18 @@ function setDiceInput() {
             //     dicediv.parentNode.removeChild(dicediv);
             // }
             editDiv.focus();
-            restoreSelection();
+            // restoreSelection();
         }
 
     })
     diceinput.addEventListener("blur", (e) => {
         dicediv.parentNode.removeChild(dicediv);
         editDiv.focus();
-        restoreSelection();
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(beforeDiceSel);
+        sel.collapseToEnd();
+        beforeDiceSel = false;
     });
 }
 //#endregion dice
