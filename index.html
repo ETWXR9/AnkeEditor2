@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>123</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="menu_div">
+		<button class="menu_button" onclick="openRootDir()">打开目录</button>
+		<button class="menu_button" onclick="screenShot()">生成长截图</button>
+		<button class="menu_button" onclick="openDevTools()">开发者工具</button>
+		<button class="menu_button" onclick="wordCount()">字数统计</button>
+		<button class="menu_button" id="img_with_name_button" onclick="switchImgWithName()">插图带人名</button>
+		<input type="color" class="color_input" id="font_color_input">
+		<input type="color" class="color_input" id="bg_color_input">
+		<input type="color" class="color_input" id="tag1_color_input">
+		<input type="color" class="color_input" id="tag2_color_input">
+		<input type="color" class="color_input" id="highlight_color_input">
+		<button class="menu_button" onclick="resetConfig()">重置设定</button>
+		<button class="menu_button" id="version-text">检测新版本中</button>
+
+	</div>
+	<div id="work_div">
+		<div id="save_div">
+			<!-- 存档浏览区内容 -->
+			<div id="save_explore_tab" class="save_tab_content">
+				<!-- 存档浏览区内容 -->
+			</div>
+			<div id="dice_history_tab" class="save_tab_content">
+				<!-- 骰子历史区内容 -->
+			</div>
+			<div class="tab">
+				<button class="save_tab_link" id="save_explore_tab_link"
+					onclick="openSaveExploreTab(event,'save_explore_tab')">存档浏览</button>
+				<button class="save_tab_link" onclick="openSaveExploreTab(event,'dice_history_tab')">骰子历史</button>
+				<button class="menu_button" onclick="readAllArticles()"><img src="refresh.png" width="20px"
+						height="20px"></button>
+			</div>
+		</div>
+		<div id="edit_div" contenteditable="true"></div>
+		<div id="img_repository_div">
+			<div id="local_tab" class="imagetabcontent">
+				<!-- Content for Tab 1 goes here -->
+				<div id="local_img_div" class="img_div">
+					<!-- 图库区内容 -->
+				</div>
+				<div id="local_chara_div" class="chara_div">
+					<!-- 角色区内容 -->
+				</div>
+			</div>
+			<div id="online_tab" class="imagetabcontent">
+				<!-- Content for Tab 2 goes here -->
+				<div id="online_img_div" class="img_div">
+					<!-- 图库区内容 -->
+				</div>
+				<div id="online_chara_div" class="chara_div">
+					<!-- 角色区内容 -->
+				</div>
+			</div>
+			<div class="tab">
+				<button class="tablinks" onclick="openImageTab(event, 'local_tab')">本地图片</button>
+				<button class="tablinks" onclick="openImageTab(event, 'online_tab')">外链图片</button>
+				<button class="menu_button" onclick="refreshChara()"><img src="refresh.png" width="20px"
+						height="20px"></button>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="editor.js"></script>
+
+</html>

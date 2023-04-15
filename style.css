@@ -1,0 +1,507 @@
+/* 全局样式 */
+body {
+	margin: 0;
+	padding: 0;
+	/* 高度为视窗高度 */
+	height: 100vh;
+	overflow: hidden;
+}
+
+:root {
+	/* 定义背景色变量 */
+	--bg-color: #1c1c1c;
+	/* 定义字体颜色变量 */
+	--font-color: #f5f5f5;
+	/* 定义字体大小变量 */
+	--font-size: 16px;
+	/* 定义图片大小变量 */
+	--img-size: 100px;
+	/* 定义标签颜色变量 */
+	--tag1-color: #0F4C75;
+	--tag2-color: #3282B8;
+	/* 定义高亮颜色变量 */
+	--highlight-color: #BBE1FA;
+	/* 定义菜单栏背景色变量 */
+	--menu-bg-color: #d3d3d3;
+}
+
+
+
+.html2canvas-container {
+	width: 3000px !important;
+	height: 3000px !important;
+}
+
+
+/* 定义滚动条的宽度和背景色 */
+::-webkit-scrollbar {
+	width: 10px;
+	background-color: #f5f5f5;
+}
+
+/* 定义滚动条的轨道颜色和边框样式 */
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	background-color: #f5f5f5;
+}
+
+/* 定义滚动条的滑块样式 */
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #999;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 定义鼠标悬停时滑块的样式 */
+::-webkit-scrollbar-thumb:hover {
+	background-color: #555;
+}
+
+
+/* 菜单栏样式 */
+#menu_div {
+	height: 30px;
+	background-color: var(--menu-bg-color);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	width: 100%;
+	/* vec center */
+	align-items: center;
+}
+
+#menu_div button {
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 5px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: var(--menu-bg-color);
+	/* color: #f5f5f5; */
+	/* mix-blend-mode: difference; */
+}
+
+#menu_div button:hover {
+	background-color: #fefefe;
+}
+
+/* 工作区样式 */
+#work_div {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	height: calc(100% - 30px);
+	/* 减去菜单栏的高度 */
+	background-color: var(--bg-color);
+	color: var(--font-color);
+
+}
+
+/* 工作区的div子元素高度和工作区一致 */
+#work_div>div {
+	height: 100%;
+}
+
+/* 存档浏览区样式 */
+#save_div {
+	flex: 1 1 15%;
+	/* 占25%宽度 */
+	position: relative;
+}
+
+
+#save_explore_tab,
+#dice_history_tab {
+	/* 允许滚动 */
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: calc(100% - 40px);
+}
+
+.article_div {
+	width: 100%;
+}
+
+.article_name_div {
+	background-color: var(--tag1-color);
+	width: 100%;
+	font-size: 20px;
+	/* 允许换行 */
+	white-space: pre-wrap;
+}
+
+/* 存档浏览区鼠标悬停时，边框变色 */
+.article_name_div:hover {
+	border: 1px solid #4CAF50;
+}
+
+.article_chapters_div {
+	width: 100%;
+}
+
+.chapter_name_div,
+.add_new_chapter_input {
+	width: 80%;
+	font-size: 16px;
+	height: auto;
+	margin-left: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	/* 两端为半圆形 */
+	border-radius: 10px;
+	background-color: var(--tag2-color);
+	/* 文字垂直居中 */
+	line-height: 20px;
+	padding-left: 10px;
+	/* 允许换行 */
+	white-space: pre-wrap;
+}
+
+.chapter_name_div.active {
+	width: 80%;
+	font-size: 16px;
+	color: #000000;
+	height: 20px;
+	margin-left: 10px;
+	/* 两端为半圆形 */
+	border-radius: 10px;
+	background-color: var(--highlight-color);
+	/* 文字垂直居中 */
+	line-height: 20px;
+	padding-left: 10px;
+}
+
+.add_new_chapter_input {
+	background-color: var(--highlight-color);
+}
+
+
+.chapter_name_div:hover {
+	border: 1px solid #4CAF50;
+}
+
+.dice_history_item_div {
+	width: 90%;
+	font-size: 16px;
+	height: 20px;
+	margin-left: 10px;
+	/* 两端为半圆形 */
+	border-radius: 10px;
+	background-color: var(--tag2-color);
+	/* 文字垂直居中 */
+	line-height: 20px;
+	padding-left: 10px;
+}
+
+.color_input {
+	-webkit-appearance: none;
+	padding: 0;
+	border: none;
+	border-radius: 10px;
+	width: 20px;
+	height: 20px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.color_input::-webkit-color-swatch {
+	border: none;
+	border-radius: 10px;
+	padding: 0;
+}
+
+.color_input::-webkit-color-swatch-wrapper {
+	border: none;
+	border-radius: 10px;
+	padding: 0;
+}
+
+.color_input:hover {
+	scale: 1.2;
+}
+
+/* 编辑区样式 */
+#edit_div {
+	/* 占50%宽度 */
+	flex: 1 1 40%;
+	/* 带有边框 */
+	border: 1px solid #000000;
+	/* 允许滚动 */
+	overflow-y: auto;
+	padding-left: 1px;
+	font-size: var(--font-size);
+}
+
+/* 编辑区focus时无效果 */
+#edit_div:focus {
+	outline: none;
+}
+
+/* 编辑区里的图片宽度限制为90% */
+#edit_div img {
+	max-width: 90%;
+}
+
+#edit_div>p {
+	margin: 0;
+	padding: 0;
+}
+
+/* 图库区样式 */
+#img_repository_div {
+	position: relative;
+	flex: 1 1 45%;
+	/* 占35%宽度 */
+	height: 100%;
+}
+
+/* 图库区tab */
+.tab {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	background-color: var(--tag1-color);
+	/* 子元素垂直居中 */
+	display: flex;
+	align-items: center;
+}
+
+.tab button {
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 5px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: transparent;
+	clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+	display: flex;
+	align-items: center;
+}
+
+.tab button:hover {
+	background-color: #ffffff;
+}
+
+.tab button.active {
+	background-color: var(--highlight-color);
+	color: #000000;
+}
+
+.imagetabcontent {
+	display: none;
+	clear: both;
+	margin-top: 40px;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	height: calc(100% - 40px);
+
+}
+
+.save_tab_content {
+	display: none;
+	clear: both;
+	margin-top: 40px;
+}
+
+
+
+/* flex竖向排列 */
+.img_div {
+	flex: 1 1 60%;
+	position: relative;
+	/* allow scroll */
+	overflow-y: auto;
+	/* flex竖向排列 */
+	display: flex;
+	flex-direction: column;
+}
+
+/* 其中flex排列图片容器，横向排列，可换行，图片容器大小统一 */
+.chara_container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	/* 图片容器大小统一 */
+	width: 100%;
+}
+
+/* 图片容器*/
+.chara_image_container,
+.new_image_container {
+	padding: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: var(--img-size);
+	height: var(--img-size);
+	background-color: var(--bg-color);
+
+}
+
+/* 图片容器标题 */
+.chara_container_header {
+	width: 100%;
+	height: 40px;
+	background-color: var(--tag2-color);
+	/* 图片容器名称居中，字体大小等于高度 */
+	text-align: center;
+	line-height: 40px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.chara_container_header::before {
+	content: "收回";
+	top: 0;
+	right: 0;
+	margin-right: 10px;
+	width: 30px;
+	height: 30px;
+	font-size: 20px;
+	line-height: 20px;
+	text-align: center;
+	color: white;
+	background-color: rgb(255, 61, 61);
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.chara_container_header:hover::before {
+	opacity: 1;
+}
+
+
+
+/* 图片容器鼠标悬停时，边框变色 */
+.chara_image_container:hover {
+	border: 2px solid var(--highlight-color);
+	padding: 0px;
+}
+
+.chara_image,
+.new_image {
+	object-fit: cover;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+/* 角色列表区样式 */
+.chara_div {
+	flex: 1 1 40%;
+
+	/* 文字不可以被选中 */
+	-webkit-user-select: none;
+}
+
+/* 角色列表区 */
+.group_list {
+	width: 100%;
+}
+
+/* 角色列表区标题 */
+.group_header {
+	background-color: var(--tag1-color);
+	width: 100%;
+	font-size: 20px;
+}
+
+/* 角色列表区标题鼠标悬停时，边框变色 */
+.group_header:hover {
+	border: 1px solid #4CAF50;
+}
+
+/* 角色列表区角色名称 */
+.chara_name,
+.new_chara {
+	width: 100%;
+	font-size: 16px;
+	height: 20px;
+	margin-left: 10px;
+	/* 两端为半圆形 */
+	border-radius: 10px;
+	background-color: var(--tag2-color);
+	/* 文字垂直居中 */
+	line-height: 20px;
+	padding-left: 10px;
+}
+
+.new_chara {
+	background-color: var(--highlight-color);
+}
+
+/* 角色列表区角色名称鼠标悬停时，边框变色 */
+.chara_name:hover {
+	border: 1px solid #4CAF50;
+}
+
+/* 角色搜索栏 */
+.chara_search_input {
+	border: 2px solid #ccc;
+	/* Add a border */
+	border-radius: 4px;
+	/* Round the corners */
+	padding: 10px;
+	/* Add some padding */
+	font-size: 16px;
+	/* Increase the font size */
+	outline: none;
+	/* Remove the outline */
+	transition: border-color 0.2s;
+	/* Add a transition effect */
+}
+
+.chara_search_input:focus {
+	border-color: #103a54;
+	/* Change the border color when focused */
+}
+
+/* 搜索提示栏 */
+.prompt_list {
+	background-color: rgba(179, 179, 179, 0.5);
+	color: #ffffff;
+	margin-bottom: 20px;
+	padding-left: 5px;
+}
+
+.search_prompt_selected {
+	background-color: var(--highlight-color);
+	color: #000000;
+}
+
+
+.dice_div {
+	display: flex;
+	flex-direction: row;
+	padding: 3px;
+	background-color: var(--tag1-color);
+	color: white;
+	position: absolute;
+	z-index: 9;
+	/* left: 120px;
+    top: 17px; */
+}
+
+.dice_input {
+	padding: 1px;
+	padding-right: 1em;
+	font-size: 15px;
+}
+
+.dice_tip {
+	font-size: 15px;
+	width: auto;
+	text-align: center;
+	padding-right: 8px;
+}
+
+.dice_sum {
+	width: auto;
+	justify-self: right;
+}

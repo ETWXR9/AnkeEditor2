@@ -1,0 +1,53 @@
+{
+  "name": "ankeeditor2",
+  "version": "2.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^24.0.0",
+    "electron-builder": "^23.6.0"
+  },
+  "dependencies": {
+    "@octokit/request": "^6.2.3",
+    "html2canvas": "^1.4.1",
+    "sortablejs": "^1.10.2"
+  },
+  "build": {
+    "appId": "org.etwxr9.ankeeditor2",
+    "productName": "安科编辑器",
+    "win": {
+      "target": [
+        {
+          "target": "portable"
+        }
+      ],
+      "icon": "icon.ico",
+      "asar": true,
+      "files": [
+        "main.js",
+        "package.json",
+        "icon.ico",
+        "index.html",
+        "preload.js",
+        "editor.js",
+        "style.css",
+        "refresh.png",
+        "new_image.png"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "portable": {
+      "splashImage": "splashImage.bmp",
+      "useZip": true
+    }
+  }
+}
