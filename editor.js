@@ -62,7 +62,7 @@ function breakLine() {
 function scrollToSelection() {
     let tempBr = document.createElement('br');
     window.getSelection().getRangeAt(0).insertNode(tempBr);
-    tempBr.scrollIntoView({ behavior: "smooth", block: "end" });
+    tempBr.scrollIntoView(true, { behavior: "smooth", block: "end" });
     tempBr.remove();
 }
 
@@ -139,7 +139,6 @@ function saveSelection() {
 
 }
 function restoreSelection() {
-
     if (savedSelection) {
         if (window.getSelection) {
             const sel = window.getSelection();
@@ -233,9 +232,11 @@ function initLocalGroup() {
                         restoreSelection();
                         const imageHtml = '<img src="' + imageUrl + '" />';
                         document.execCommand('insertHTML', false, imageHtml);
+                        scrollToSelection();
                         //插图带人名
                         if (config.imgWithName) {
                             document.execCommand('insertText', false, "\n" + charaName + "：");
+                            scrollToSelection();
                         }
                     });
                 });
@@ -687,6 +688,7 @@ function createNewOnlineImageContainer(parentDiv, url, charaGroupName) {
             if (config.imgWithName) {
                 const charaName = parentDiv.getElementsByClassName('chara_container_header')[0].innerText;
                 document.execCommand('insertText', false, "\n" + charaName + "：");
+                scrollToSelection();
             }
         }
         //when right click on ctrl, delete the image
@@ -980,7 +982,6 @@ function openSaveExploreTab(evt, tabName) {
     // 3. Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
-    config.imgType = tabName;
 }
 
 //clikc save_explore_tab_link

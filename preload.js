@@ -22,7 +22,7 @@ contextBridge.exposeInMainWorld(
   //获取目录下所有文件夹
   getAllDirs: (dir) => fs.readdirSync(dir, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name),
+    .map(dirent => dirent.name).sort(compareFileNames),
   //读取目录下所有文件，判断后缀名是否为图片，返回url
   getImageUrl: (dir) => {
     let url = [];
@@ -54,6 +54,10 @@ contextBridge.exposeInMainWorld(
         fileNames.push(file.name);
       }
     });
+    //sort fileNames using windows sort
+    fileNames.sort(
+      compareFileNames
+    );
     return fileNames;
   },
   getAllJson: (dir) => {
@@ -124,3 +128,31 @@ contextBridge.exposeInMainWorld(
     });
   },
 });
+
+
+function compareFileNames(a, b) {
+  // 先将文件名转换为 Windows 支持的排序格式
+  a = a.normalize("NFC").toUpperCase();
+  b = b.normalize("NFC").toUpperCase();
+
+  // 按照数字进行排序
+  let aNum = parseInt(a);
+  let bNum = parseInt(b);
+  if (!isNaN(aNum) && !isNaN(bNum)) {
+    return aNum - bNum;
+  }
+
+  // 按照文件名长度进行排序
+  if (a.length !== b.length) {
+    return a.length - b.length;
+  }
+
+  // 按照字母序进行排序
+  if (a < b) {
+    return -1;
+  } else if (a > b) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
