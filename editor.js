@@ -49,6 +49,7 @@ function openImageTab(evt, tabName) {
     evt.currentTarget.className += " active";
     // 4. change the config
     config.imgType = tabName;
+    saveConfig();
 }
 
 
@@ -153,9 +154,9 @@ function saveSelection() {
         savedSelection = sel.getRangeAt(0);
     }
 
-    //log
-    console.log(`save selection:`);
-    console.log(savedSelection);
+    // //log
+    // console.log(`save selection:`);
+    // console.log(savedSelection);
 
 }
 function restoreSelection() {
@@ -1054,9 +1055,11 @@ const defaultConfig = {
     //图片大小
     imgSize: 100,
     //图库类型
-    imgType: 'local',
+    imgType: 'local_tab',
     //插图带人名
     imgWithName: false,
+    //骰子带1D
+    dicePrefix: false,
 };
 //clone
 var config = JSON.parse(JSON.stringify(defaultConfig));
@@ -1071,6 +1074,16 @@ function readConfig() {
         config = JSON.parse(JSON.stringify(defaultConfig));
         saveConfig();
     }
+    //compaer with defaultConfig , if not exist, add it
+    for (const key in defaultConfig) {
+        if (!config.hasOwnProperty(key)) {
+            config[key] = defaultConfig[key];
+        }
+    }
+    //save config
+    saveConfig();
+    //log
+    console.log('config', config);
     //change :root css variable
     document.documentElement.style.setProperty('--font-size', config.fontSize + 'px');
     document.documentElement.style.setProperty('--font-color', config.fontColor);
@@ -1087,11 +1100,13 @@ function readConfig() {
 
     document.documentElement.style.setProperty('--img-size', config.imgSize + 'px');
     document.getElementById('img_with_name_button').innerHTML = config.imgWithName ? '插图带人名' : '插图不带人名';
+    document.getElementById('dice_prefix_button').innerHTML = config.dicePrefix ? '骰子带1D' : '骰子不带1D';
+
     //set tab according to config
-    if (config.imgType === 'local') {
-        document.getElementById('local_tab').click();
+    if (config.imgType === 'local_tab') {
+        document.getElementById('local_tab_link').click();
     } else {
-        document.getElementById('online_tab').click();
+        document.getElementById('online_tab_link').click();
     }
 
     //checkVersion
@@ -1151,6 +1166,12 @@ function switchImgWithName() {
     document.getElementById('img_with_name_button').innerHTML = config.imgWithName ? '插图带人名' : '插图不带人名';
     saveConfig();
 }
+//switch dice prefix
+function switchDicePrefix() {
+    config.dicePrefix = !config.dicePrefix;
+    document.getElementById('dice_prefix_button').innerHTML = config.dicePrefix ? '骰子带1D' : '骰子不带1D';
+    saveConfig();
+}
 //font_color_input
 
 fontColorInput.addEventListener('change', function (e) {
@@ -1184,7 +1205,6 @@ highlightColorInput.addEventListener('change', function (e) {
 
 
 //#endregion
-
 
 //#region dice
 
@@ -1280,6 +1300,7 @@ function setDiceInput() {
     //log
     console.log("dice input created");
     diceinput.focus();
+    if (config.dicePrefix) diceinput.value = "1d";
     //log
     console.log("dice input focused");
     diceinput.addEventListener("input", (e) => {
