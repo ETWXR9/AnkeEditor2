@@ -103,7 +103,7 @@ editDiv.addEventListener('paste', function (e) {
 });
 
 
-// Record cursor position when edit_div loses focus
+// Record cursor position when edit_div selection change
 let savedSelection;
 editDiv.addEventListener('selectionchange', (e) => {
     //prevent on dice_div class
@@ -112,10 +112,6 @@ editDiv.addEventListener('selectionchange', (e) => {
     }
     saveSelection();
 });
-// editDiv.addEventListener('selectstart', () => {
-
-//     saveSelection();
-// });
 editDiv.addEventListener('input', (e) => {
     //prevent on dice_div class
     if (e.target.className === "dice_div") {
@@ -123,6 +119,7 @@ editDiv.addEventListener('input', (e) => {
     }
     saveSelection();
 });
+//when use keyboard to move the cursor
 editDiv.addEventListener('keyup', (e) => {
     //prevent on dice_div class
     if (e.target.className === "dice_div") {
@@ -130,6 +127,7 @@ editDiv.addEventListener('keyup', (e) => {
     }
     saveSelection();
 });
+//when use mouse to move the cursor
 editDiv.addEventListener('mouseup', (e) => {
     //prevent on dice_div class
     if (e.target.className === "dice_div") {
@@ -141,18 +139,10 @@ editDiv.addEventListener('mouseup', (e) => {
     }
 });
 function saveSelection() {
-
     const sel = window.getSelection();
-
-    //add a new range to the selection
     if (sel.rangeCount) {
         savedSelection = sel.getRangeAt(0);
     }
-
-    // //log
-    // console.log(`save selection:`);
-    // console.log(savedSelection);
-
 }
 function restoreSelection() {
     if (savedSelection) {
@@ -165,9 +155,6 @@ function restoreSelection() {
             savedSelection.select();
         }
     }
-    //log
-    console.log(`restore selection:`);
-    console.log(savedSelection);
     savedSelection = false;
 }
 
@@ -175,7 +162,7 @@ function restoreSelection() {
 document.addEventListener('keydown', function (e) {
     if (e.ctrlKey && e.key.toLowerCase() === 'q') {
         //insert 10 lines with a number at the start of each line
-        document.execCommand('insertHTML', false, '<p>1.</p><p>2.</p><p>3.</p><p>4.</p><p>5.</p><p>6.</p><p>7.</p><p>8.</p><p>9.</p><p>10.</p>');
+        document.execCommand('insertTEXT', false, '1.\n2.\n3.\n4.\n5.\n6.\n7.\n8.\n9.\n10.\n');
     }
 });
 
